@@ -1,4 +1,5 @@
-import { prisma, request } from "../utils";
+import { verify } from "jsonwebtoken";
+import { getUserTokenByEmail, prisma, request } from "../utils";
 
 describe("User router", () => {
   const name = "test";
@@ -35,7 +36,7 @@ describe("User router", () => {
     test("Given valid user then it should update user data by id", async () => {
       const user = await request.post("/user/").send({ name, email, password });
       const tokenRes = await request
-        .post("/auth/login")
+        .post("/user/login")
         .send({ email, password });
 
       const result = await request
@@ -60,7 +61,7 @@ describe("User router", () => {
         .post("/user/")
         .send({ name, email, password });
       const tokenRes = await request
-        .post("/auth/login")
+        .post("/user/login")
         .send({ email, password });
 
       const result = await request
@@ -86,7 +87,7 @@ describe("User router", () => {
         .post("/user/")
         .send({ name: "user1", email: "2@email.com", password });
       const tokenRes = await request
-        .post("/auth/login")
+        .post("/user/login")
         .send({ email, password });
 
       const result = await request
@@ -110,13 +111,13 @@ describe("User router", () => {
     });
   });
 
-  describe("Get by id user", () => {
+  describe("Get user by id", () => {
     test("Given valid id then should return user data", async () => {
       const userRes = await request
         .post("/user/")
         .send({ name, email, password });
       const tokenRes = await request
-        .post("/auth/login")
+        .post("/user/login")
         .send({ email, password });
 
       const result = await request
@@ -133,7 +134,7 @@ describe("User router", () => {
         .send({ name, email, password });
       const id: string = userRes.body.id;
       const tokenRes = await request
-        .post("/auth/login")
+        .post("/user/login")
         .send({ email, password });
 
       const result = await request
@@ -142,6 +143,80 @@ describe("User router", () => {
 
       expect(result.status).toBe(200);
       expect(result.body).toBeNull();
+    });
+  });
+
+  describe("login", () => {
+    beforeEach(async () => {
+      await request
+        .post("/user/")
+        .send({ name: "test", email: "dev@email.com", password: "123123123" });
+    });
+
+    test("given correct credentials, should return jwt token", async () => {
+      const token = await getUserTokenByEmail("dev@email.com");
+
+      const result = await request
+        .post("/user/login")
+        .send({ email: "dev@email.com", password: "123123123" });
+
+      expect(result.status).toBe(200);
+      expect(result.body).toEqual({ token });
+    });
+
+    test("given wrong credentials, should return error", async () => {
+      const result = await request
+        .post("/user/login")
+        .send({ email: "dev@email.com", password: "invalid" });
+
+      expect(result.status).toBe(400);
+      expect(result.body).toEqual({ message: "invalid credentials" });
+    });
+  });
+
+  describe("logout", () => {
+    beforeEach(async () => {
+      await request
+        .post("/user/")
+        .send({ name: "test", email: "dev@email.com", password: "123123123" });
+    });
+
+    test("given user authenticated, should return ok", async () => {
+      const token = await getUserTokenByEmail("dev@email.com");
+
+      const result = await request
+        .get("/user/logout")
+        .set("authorization", `Bearer ${token}`);
+
+      expect(result.status).toBe(200);
+      expect(result.body).toEqual(null);
+    });
+  });
+
+  describe("me", () => {
+    beforeEach(async () => {
+      await request
+        .post("/user/")
+        .send({ name: "test", email: "dev@email.com", password: "123123123" });
+    });
+
+    test("given user unauthenticated, should return error", async () => {
+      const result = await request.get("/user/me");
+
+      expect(result.status).toBe(403);
+      expect(result.body).toEqual({ message: "jwt token não informado" });
+    });
+
+    test("given user authenticated, should return jwt decrypted", async () => {
+      const token = await getUserTokenByEmail("dev@email.com");
+      const jwtPayload = verify(token, "development");
+
+      const result = await request
+        .get("/user/me")
+        .set("authorization", `Bearer ${token}`);
+
+      expect(result.status).toBe(200);
+      expect(result.body).toEqual(jwtPayload);
     });
   });
 });

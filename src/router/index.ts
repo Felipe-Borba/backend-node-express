@@ -1,11 +1,9 @@
 import { Request, Response, Router } from "express";
-import authRoutes from "./auth.routes";
 import userRoutes from "./user.routes";
 
 const routes = Router();
 
 routes.use("/user", userRoutes);
-routes.use("/auth", authRoutes);
 
 routes.get("/", (request: Request, response: Response) => {
   response.json({ message: "Hello World!" });

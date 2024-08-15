@@ -11,6 +11,10 @@ const repository = new UserRepository();
 const service = new UserService(repository);
 const controller = new UserController(service);
 
+router.post("/login", controller.login);
+router.post("/logout", ensureAuthenticated, controller.logout);
+router.get("/me", ensureAuthenticated, controller.me);
+
 router.post(
   "/",
   body("name").optional(),

@@ -28,4 +28,10 @@ export class UserRepository {
       orderBy: { email: "asc" },
     });
   };
+
+  findByEmail = async (email: string): Promise<User | null> => {
+    return await PrismaClient.instance.user.findUnique({
+      where: { email },
+    });
+  };
 }

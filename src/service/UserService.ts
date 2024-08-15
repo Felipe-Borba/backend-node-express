@@ -1,6 +1,7 @@
 import { User } from "@prisma/client";
 import { UserRepository } from "../repository/UserRepository";
-import { hash } from "bcryptjs";
+import { compare, hash } from "bcryptjs";
+import { sign } from "jsonwebtoken";
 
 export class UserService {
   private readonly userRepository: UserRepository;
@@ -35,5 +36,23 @@ export class UserService {
 
   list = async () => {
     return await this.userRepository.findMany();
+  };
+
+  login = async (params: { email: string; password: string }) => {
+    const user = await this.userRepository.findByEmail(params.email);
+
+    if (!user) {
+      throw new Error("invalid credentials");
+    }
+
+    const passwordMatched = await compare(params.password, user.password);
+
+    if (!passwordMatched) {
+      throw new Error("invalid credentials");
+    }
+
+    return sign({ user }, process.env.AUTH_SECRET!, {
+      expiresIn: 86400, // expires in 24 hours
+    });
   };
 }
