@@ -1,31 +1,13 @@
-import { hash } from "bcryptjs";
 import { NextFunction, Request, Response } from "express";
-import { PrismaClient } from "../repository/PrismaClient";
-
-const prisma = PrismaClient.instance;
+import { UserService } from "../service/UserService";
 
 export default class UserController {
-  async create(request: Request, response: Response, next: NextFunction) {
-    /**
-     * #swagger.tags = ['Users']
-     * #swagger.summary = 'Returns a user by id'
-     * #swagger.description = 'This endpoint will return a user by id...'
-     */
-    try {
-      const { name, email, password } = request.body;
-
-      const hashedPassword = await hash(password, 8);
-      const user = await prisma.user.create({
-        data: { name, email, password: hashedPassword },
-      });
-
-      return response.json(user);
-    } catch (error) {
-      return next(error);
-    }
+  private readonly userService: UserService;
+  constructor(userService: UserService) {
+    this.userService = userService;
   }
 
-  async update(request: Request, response: Response, next: NextFunction) {
+  create = async (request: Request, response: Response, next: NextFunction) => {
     /**
      * #swagger.tags = ['Users']
      * #swagger.summary = 'Returns a user by id'
@@ -33,20 +15,29 @@ export default class UserController {
      */
 
     try {
-      const { name, email, id } = request.body;
-
-      const user = await prisma.user.update({
-        where: { id },
-        data: { name, email },
-      });
-
+      const user = await this.userService.create(request.body);
       return response.json(user);
     } catch (error) {
       return next(error);
     }
-  }
+  };
 
-  async delete(request: Request, response: Response, next: NextFunction) {
+  update = async (request: Request, response: Response, next: NextFunction) => {
+    /**
+     * #swagger.tags = ['Users']
+     * #swagger.summary = 'Returns a user by id'
+     * #swagger.description = 'This endpoint will return a user by id...'
+     */
+
+    try {
+      const user = await this.userService.update(request.body);
+      return response.json(user);
+    } catch (error) {
+      return next(error);
+    }
+  };
+
+  delete = async (request: Request, response: Response, next: NextFunction) => {
     /**
      * #swagger.tags = ['Users']
      * #swagger.summary = 'Returns a user by id'
@@ -55,18 +46,14 @@ export default class UserController {
 
     try {
       const { id } = request.params;
-
-      const user = await prisma.user.delete({
-        where: { id },
-      });
-
+      await this.userService.deleteById(id);
       return response.status(204).json({});
     } catch (error) {
       return next(error);
     }
-  }
+  };
 
-  async list(request: Request, response: Response, next: NextFunction) {
+  list = async (request: Request, response: Response, next: NextFunction) => {
     /**
      * #swagger.tags = ['Users']
      * #swagger.summary = 'Returns a user by id'
@@ -74,17 +61,18 @@ export default class UserController {
      */
 
     try {
-      const user = await prisma.user.findMany({ orderBy: { email: "asc" } });
-
-      return response.json(
-        user.map((a) => ({ id: a.id, name: a.name, email: a.email }))
-      );
+      const list = await this.userService.list();
+      return response.status(200).json(list);
     } catch (error) {
       return next(error);
     }
-  }
+  };
 
-  async getById(request: Request, response: Response, next: NextFunction) {
+  getById = async (
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) => {
     /**
      * #swagger.tags = ['Users']
      * #swagger.summary = 'Returns a user by id'
@@ -93,14 +81,10 @@ export default class UserController {
 
     try {
       const { id } = request.params;
-
-      const user = await prisma.user.findUnique({
-        where: { id },
-      });
-
+      const user = await this.userService.findById(id);
       return response.json(user);
     } catch (error) {
       return next(error);
     }
-  }
+  };
 }

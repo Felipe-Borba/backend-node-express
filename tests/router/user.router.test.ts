@@ -16,6 +16,7 @@ describe("User router", () => {
         .send({ name, email, password });
 
       const user = await prisma.user.findUnique({ where: { email } });
+
       expect(result.status).toBe(200);
       expect(result.body.name).toEqual(user?.name);
       expect(result.body.email).toEqual(user?.email);
@@ -44,7 +45,6 @@ describe("User router", () => {
           id: user.body.id,
           name: "updated",
           email: "new@email.com",
-          password: "new",
         });
 
       expect(result.status).toBe(200);
@@ -78,7 +78,7 @@ describe("User router", () => {
   });
 
   describe("List user", () => {
-    test("Given valid jwt then return list of users ordered by email", async () => {
+    test("Given user authenticated then return list of users ordered by email", async () => {
       const userRes1 = await request
         .post("/user/")
         .send({ name, email, password });

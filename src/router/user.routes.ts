@@ -1,11 +1,15 @@
 import { Router } from "express";
 import { body } from "express-validator";
-import UserController from "../controller/user-controller";
+import UserController from "../controller/UserController";
 import ensureAuthenticated from "../middlewares/ensureAuthenticated";
 import validate from "../middlewares/validate";
+import { UserService } from "../service/UserService";
+import { UserRepository } from "../repository/UserRepository";
 
 const router = Router();
-const controller = new UserController();
+const repository = new UserRepository();
+const service = new UserService(repository);
+const controller = new UserController(service);
 
 router.post(
   "/",
