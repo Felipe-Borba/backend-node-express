@@ -1,0 +1,52 @@
+{
+  "name": "api-controle-de-dieta",
+  "version": "1.0.0",
+  "description": "caguei",
+  "main": "src/index.ts",
+  "scripts": {
+    "swagger:generate": "ts-node src/swagger.ts",
+    "test": "jest --testTimeout=5000 --detectOpenHandles",
+    "dev:test": "jest --testTimeout=5000 --detectOpenHandles --watch",
+    "start": "tsc && node dist/app.js",
+    "dev": "nodemon --exec ts-node src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Felipe-Borba/API-controle-de-dieta.git"
+  },
+  "keywords": [
+    "trabalho"
+  ],
+  "author": "Felipe borba, Andre Santo, Leonardo Vieira",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Felipe-Borba/API-controle-de-dieta/issues"
+  },
+  "homepage": "https://github.com/Felipe-Borba/API-controle-de-dieta#readme",
+  "dependencies": {
+    "@prisma/client": "^5.11.0",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.11.30",
+    "@types/supertest": "^6.0.2",
+    "@types/swagger-ui-express": "^4.1.6",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "prisma": "^5.11.0",
+    "supertest": "^6.3.4",
+    "swagger-autogen": "^2.23.7",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.3"
+  }
+}
