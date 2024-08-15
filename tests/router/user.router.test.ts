@@ -6,7 +6,6 @@ describe("User router", () => {
   const password = "123123123";
 
   beforeEach(async () => {
-    await prisma.meal.deleteMany();
     await prisma.user.deleteMany();
   });
 

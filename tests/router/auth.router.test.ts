@@ -3,7 +3,6 @@ import { getUserTokenByEmail, prisma, request } from "../utils";
 
 describe("auth router", () => {
   beforeEach(async () => {
-    await prisma.meal.deleteMany();
     await prisma.user.deleteMany();
     await request
       .post("/user/")
