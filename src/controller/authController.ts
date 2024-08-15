@@ -1,9 +1,10 @@
-import { PrismaClient, User } from "@prisma/client";
+import {  User } from "@prisma/client";
 import { compare } from "bcryptjs";
 import { Request as _Request, NextFunction, Response } from "express";
 import { sign } from "jsonwebtoken";
+import { PrismaClient } from "../repository/PrismaClient";
 
-const prisma = new PrismaClient();
+const prisma = PrismaClient.instance;
 type Request = _Request<{ user?: User; iat?: number; exp?: number }>;
 
 export default class AuthController {

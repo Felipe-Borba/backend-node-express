@@ -1,9 +1,9 @@
-import { PrismaClient } from "@prisma/client";
 import { sign } from "jsonwebtoken";
 import supertest from "supertest";
 import app from "../src/app";
+import { PrismaClient } from "../src/repository/PrismaClient";
 
-export const prisma = new PrismaClient();
+export const prisma = PrismaClient.instance
 
 export const getUserTokenByEmail = async (email: string) => {
   const user = await prisma.user.findUniqueOrThrow({
