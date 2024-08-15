@@ -47,26 +47,6 @@
           "200": {
             "description": "OK"
           }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "email": {
-                    "example": "any"
-                  },
-                  "password": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
         }
       },
       "put": {
@@ -78,26 +58,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "email": {
-                    "example": "any"
-                  },
-                  "id": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
           }
         }
       },
@@ -239,153 +199,6 @@
           "Auth"
         ],
         "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/meal/": {
-      "post": {
-        "tags": [
-          "Meals"
-        ],
-        "summary": "Create a meal",
-        "description": "This endpoint will return created meal",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "description": {
-                    "example": "any"
-                  },
-                  "data": {
-                    "example": "any"
-                  },
-                  "diet": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Meals"
-        ],
-        "summary": "Create a meal",
-        "description": "This endpoint will return a user by id...",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "example": "any"
-                  },
-                  "name": {
-                    "example": "any"
-                  },
-                  "description": {
-                    "example": "any"
-                  },
-                  "data": {
-                    "example": "any"
-                  },
-                  "diet": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Meals"
-        ],
-        "summary": "Create a meal",
-        "description": "This endpoint will return a user by id...",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/meal/{id}": {
-      "delete": {
-        "tags": [
-          "Meals"
-        ],
-        "summary": "Create a meal",
-        "description": "This endpoint will return a user by id...",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Meals"
-        ],
-        "summary": "Create a meal",
-        "description": "This endpoint will return a user by id...",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/meal/metrics": {
-      "get": {
-        "tags": [
-          "Meals"
-        ],
-        "summary": "Create a meal",
-        "description": "This endpoint will return a user by id...",
         "responses": {
           "200": {
             "description": "OK"
