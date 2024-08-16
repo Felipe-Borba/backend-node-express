@@ -170,7 +170,7 @@ describe("User router", () => {
         .send({ email: "dev@email.com", password: "invalid" });
 
       expect(result.status).toBe(400);
-      expect(result.body).toEqual({ message: "invalid credentials" });
+      expect(result.body).toEqual({ message: "Invalid credentials" });
     });
   });
 

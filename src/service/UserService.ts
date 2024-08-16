@@ -9,24 +9,38 @@ export class UserService {
     this.userRepository = userRepository;
   }
 
-  create = async (user: User) => {
-    //TODO check if user already exists
+  create = async (user: Omit<User, "id">) => {
+    const response = await this.userRepository.findByEmail(user.email);
+    if (response) {
+      throw new Error("User already exists");
+    }
+
     const hashedPassword = await hash(user.password, 8);
     user.password = hashedPassword;
     return await this.userRepository.create(user);
   };
 
-  update = async (user: User) => {
-    //TODO check if user exists
-    if (user.password) {
-      const hashedPassword = await hash(user.password, 8);
-      user.password = hashedPassword;
+  update = async (userParams: Partial<User>) => {
+    const user = await this.userRepository.findById(userParams.id ?? "");
+    if (!user) {
+      throw new Error("User not found");
     }
-    return await this.userRepository.update(user);
+
+    if (userParams.password) {
+      const hashedPassword = await hash(userParams.password, 8);
+      userParams.password = hashedPassword;
+    }
+    userParams = { ...user, ...userParams };
+
+    return await this.userRepository.update(userParams);
   };
 
   deleteById = async (id: string) => {
-    //TODO check if user exists
+    const user = await this.userRepository.findById(id);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
     return await this.userRepository.deleteById(id);
   };
 
@@ -42,13 +56,13 @@ export class UserService {
     const user = await this.userRepository.findByEmail(params.email);
 
     if (!user) {
-      throw new Error("invalid credentials");
+      throw new Error("Invalid credentials");
     }
 
     const passwordMatched = await compare(params.password, user.password);
 
     if (!passwordMatched) {
-      throw new Error("invalid credentials");
+      throw new Error("Invalid credentials");
     }
 
     return sign({ user }, process.env.AUTH_SECRET!, {

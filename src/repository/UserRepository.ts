@@ -2,11 +2,11 @@ import { User } from "@prisma/client";
 import { PrismaClient } from "./PrismaClient";
 
 export class UserRepository {
-  create = async (user: User): Promise<User> => {
+  create = async (user: Omit<User, "id">): Promise<User> => {
     return await PrismaClient.instance.user.create({ data: user });
   };
 
-  update = async (user: User): Promise<User> => {
+  update = async (user: Partial<User>): Promise<User> => {
     return await PrismaClient.instance.user.update({
       data: user,
       where: { id: user.id },
