@@ -62,7 +62,7 @@ export default class UserController {
      */
 
     try {
-      const list = await this.userService.list();
+      const list = await this.userService.list(request.query);
       return response.status(200).json(list);
     } catch (error) {
       return next(error);

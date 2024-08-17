@@ -95,19 +95,48 @@ describe("User router", () => {
         .set("authorization", `Bearer ${tokenRes.body.token}`)
         .send({});
 
+      expect(result.body).toEqual({
+        page: 1,
+        total: 2,
+        content: [
+          {
+            id: userRes2.body.id,
+            email: "2@email.com",
+            name: "user1",
+          },
+          {
+            id: userRes1.body.id,
+            email: "test@email.com",
+            name: "test",
+          },
+        ],
+      });
       expect(result.status).toBe(200);
-      expect(result.body).toEqual([
-        {
-          id: userRes2.body.id,
-          email: "2@email.com",
-          name: "user1",
-        },
-        {
-          id: userRes1.body.id,
-          email: "test@email.com",
-          name: "test",
-        },
-      ]);
+    });
+
+    test("Given list of user and query for page 2 then should return a list of user paginated", async () => {
+      const userRes1 = await request
+        .post("/user/")
+        .send({ name, email, password });
+      const userRes2 = await request
+        .post("/user/")
+        .send({ name: "user1", email: "2@email.com", password });
+      const tokenRes = await request
+        .post("/user/login")
+        .send({ email, password });
+
+      const result = await request
+        .get("/user/")
+        .query({ page: 2 })
+        .set("authorization", `Bearer ${tokenRes.body.token}`)
+        .send({});
+
+      expect(result.body).toEqual({
+        page: 2,
+        total: 2,
+        content: [],
+      });
+      expect(result.status).toBe(200);
     });
   });
 

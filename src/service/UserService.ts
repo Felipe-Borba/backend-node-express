@@ -48,8 +48,12 @@ export class UserService {
     return await this.userRepository.findById(id);
   };
 
-  list = async () => {
-    return await this.userRepository.findMany();
+  list = async (params?: { page?: number }) => {
+    const page = Number(params?.page ?? 1);
+    return await this.userRepository.findMany({
+      page: page < 1 ? 1 : page,
+      select: 10,
+    });
   };
 
   login = async (params: { email: string; password: string }) => {

@@ -21,12 +21,20 @@ export class UserRepository {
     return await PrismaClient.instance.user.delete({ where: { id } });
   };
 
-  findMany = async (): Promise<Omit<User, "password">[]> => {
-    //TODO pagination
-    return await PrismaClient.instance.user.findMany({
+  findMany = async (params: { page: number; select: number }) => {
+    const total = await PrismaClient.instance.user.count();
+    const result = await PrismaClient.instance.user.findMany({
       select: { email: true, id: true, name: true },
       orderBy: { email: "asc" },
+      skip: (params.page - 1) * params.select,
+      take: params.select,
     });
+
+    return {
+      page: params.page,
+      total,
+      content: result,
+    };
   };
 
   findByEmail = async (email: string): Promise<User | null> => {
