@@ -154,7 +154,7 @@ This project uses Swagger for API documentation.
 To view the Swagger UI, navigate to:
 
 ```bash
-http://localhost:3000/api-docs
+http://localhost:3000/docs
 ```
 
 ## Project Structure
