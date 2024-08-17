@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { UserService } from "../service/UserService";
+import { UserService } from "../services/UserService";
 import { RequestAuthenticated } from "../@types/RequestAuthenticated";
 
 export default class UserController {

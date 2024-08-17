@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerOutput from "../swagger_output.json";
-import router from "./router";
+import router from "./routes";
 
 const app = express();
 app.use(express.json());

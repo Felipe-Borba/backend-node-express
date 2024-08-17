@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { body } from "express-validator";
-import UserController from "../controller/UserController";
+import UserController from "../controllers/UserController";
 import ensureAuthenticated from "../middlewares/ensureAuthenticated";
 import validate from "../middlewares/validate";
-import { UserService } from "../service/UserService";
+import { UserService } from "../services/UserService";
 import { UserRepository } from "../repository/UserRepository";
 
 const router = Router();

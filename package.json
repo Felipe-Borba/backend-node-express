@@ -6,7 +6,7 @@
   "scripts": {
     "swagger:generate": "ts-node src/swagger.ts",
     "test": "jest --testTimeout=5000 --detectOpenHandles",
-    "dev:test": "jest --testTimeout=5000 --detectOpenHandles --watch",
+    "test:watch": "jest --testTimeout=5000 --detectOpenHandles --watch",
     "start": "tsc && node dist/app.js",
     "dev": "nodemon --exec ts-node src/server.ts"
   },

@@ -36,6 +36,63 @@
         }
       }
     },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Sign in user",
+        "description": "This endpoint will return auth token",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/user/me": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/user/": {
       "post": {
         "tags": [
@@ -113,92 +170,6 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/auth/public": {
-      "get": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/auth/private": {
-      "get": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/auth/logout": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/auth/login": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "Sign in user",
-        "description": "This endpoint will return auth token",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "example": "any"
-                  },
-                  "password": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/me": {
-      "get": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "",
         "responses": {
           "200": {
             "description": "OK"
