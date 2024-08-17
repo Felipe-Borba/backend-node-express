@@ -8,16 +8,8 @@ const doc = {
   },
   tags: [
     {
-      name: "Users",
-      description: "Users"
-    },
-    {
-      name: "Auth",
-      description: "Auth"
-    },
-    {
-      name: "Meals",
-      description: "Meals"
+      name: "User",
+      description: "User",
     },
   ],
   servers: [
@@ -37,6 +29,6 @@ const doc = {
 };
 
 const outputFile = "../swagger_output.json";
-const endpointsFiles = ["./src/router/index.ts"];
+const endpointsFiles = ["./src/routes/index.ts"];
 
 swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFiles, doc);

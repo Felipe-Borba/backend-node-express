@@ -13,16 +13,8 @@
   ],
   "tags": [
     {
-      "name": "Users",
-      "description": "Users"
-    },
-    {
-      "name": "Auth",
-      "description": "Auth"
-    },
-    {
-      "name": "Meals",
-      "description": "Meals"
+      "name": "User",
+      "description": "User"
     }
   ],
   "paths": {
@@ -39,10 +31,9 @@
     "/user/login": {
       "post": {
         "tags": [
-          "Auth"
+          "User"
         ],
-        "summary": "Sign in user",
-        "description": "This endpoint will return auth token",
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
@@ -70,7 +61,7 @@
     "/user/logout": {
       "post": {
         "tags": [
-          "Auth"
+          "User"
         ],
         "description": "",
         "responses": {
@@ -83,7 +74,7 @@
     "/user/me": {
       "get": {
         "tags": [
-          "Auth"
+          "User"
         ],
         "description": "",
         "responses": {
@@ -96,10 +87,9 @@
     "/user/": {
       "post": {
         "tags": [
-          "Users"
+          "User"
         ],
-        "summary": "Returns a user by id",
-        "description": "This endpoint will return a user by id...",
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
@@ -108,10 +98,9 @@
       },
       "put": {
         "tags": [
-          "Users"
+          "User"
         ],
-        "summary": "Returns a user by id",
-        "description": "This endpoint will return a user by id...",
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
@@ -120,10 +109,9 @@
       },
       "get": {
         "tags": [
-          "Users"
+          "User"
         ],
-        "summary": "Returns a user by id",
-        "description": "This endpoint will return a user by id...",
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
@@ -134,10 +122,9 @@
     "/user/{id}": {
       "delete": {
         "tags": [
-          "Users"
+          "User"
         ],
-        "summary": "Returns a user by id",
-        "description": "This endpoint will return a user by id...",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -156,10 +143,9 @@
       },
       "get": {
         "tags": [
-          "Users"
+          "User"
         ],
-        "summary": "Returns a user by id",
-        "description": "This endpoint will return a user by id...",
+        "description": "",
         "parameters": [
           {
             "name": "id",

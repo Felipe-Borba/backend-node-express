@@ -10,9 +10,7 @@ export default class UserController {
 
   create = async (request: Request, response: Response, next: NextFunction) => {
     /**
-     * #swagger.tags = ['Users']
-     * #swagger.summary = 'Returns a user by id'
-     * #swagger.description = 'This endpoint will return a user by id...'
+     * #swagger.tags = ['User']
      */
 
     try {
@@ -25,9 +23,7 @@ export default class UserController {
 
   update = async (request: Request, response: Response, next: NextFunction) => {
     /**
-     * #swagger.tags = ['Users']
-     * #swagger.summary = 'Returns a user by id'
-     * #swagger.description = 'This endpoint will return a user by id...'
+     * #swagger.tags = ['User']
      */
 
     try {
@@ -40,9 +36,7 @@ export default class UserController {
 
   delete = async (request: Request, response: Response, next: NextFunction) => {
     /**
-     * #swagger.tags = ['Users']
-     * #swagger.summary = 'Returns a user by id'
-     * #swagger.description = 'This endpoint will return a user by id...'
+     * #swagger.tags = ['User']
      */
 
     try {
@@ -56,9 +50,7 @@ export default class UserController {
 
   list = async (request: Request, response: Response, next: NextFunction) => {
     /**
-     * #swagger.tags = ['Users']
-     * #swagger.summary = 'Returns a user by id'
-     * #swagger.description = 'This endpoint will return a user by id...'
+     * #swagger.tags = ['User']
      */
 
     try {
@@ -75,9 +67,7 @@ export default class UserController {
     next: NextFunction
   ) => {
     /**
-     * #swagger.tags = ['Users']
-     * #swagger.summary = 'Returns a user by id'
-     * #swagger.description = 'This endpoint will return a user by id...'
+     * #swagger.tags = ['User']
      */
 
     try {
@@ -91,9 +81,7 @@ export default class UserController {
 
   login = async (request: Request, response: Response, next: NextFunction) => {
     /**
-     * #swagger.tags = ['Auth']
-     * #swagger.summary = 'Sign in user'
-     * #swagger.description = 'This endpoint will return auth token'
+     * #swagger.tags = ['User']
      */
 
     try {
@@ -107,7 +95,7 @@ export default class UserController {
 
   logout = (request: Request, response: Response, next: NextFunction) => {
     /**
-     * #swagger.tags = ['Auth']
+     * #swagger.tags = ['User']
      */
 
     try {
@@ -123,7 +111,7 @@ export default class UserController {
     next: NextFunction
   ) => {
     /**
-     * #swagger.tags = ['Auth']
+     * #swagger.tags = ['User']
      */
 
     try {
